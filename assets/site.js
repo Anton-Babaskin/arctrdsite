@@ -47,6 +47,90 @@
     ['Hot-rolled steel unsymmetrical bulb section for shipbuilding','u9','long'],
     ['ARGON LIQUID/GASEOUS | OXYGEN LIQUID/GASEOUS NITROGEN LIQUID | KRYPTONOXENONE MIXTURE | NEON-HELIUM MIXTURE','u21','gas']
   ];
+  /* ============================================================
+     product reference — what each position is, the parameters it is
+     normally specified by, and where it ends up. Generic trade and
+     metallurgy practice; actual grades and sizes are confirmed per
+     enquiry, so nothing here is presented as stock on hand.
+     ============================================================ */
+  var INFO = {
+  u1:{d:'Hot-rolled reinforcing bar for concrete. Ribbed surface so the bar keys into the concrete and transfers load through the bond rather than friction.',
+      s:['Nominal diameter','Strength class and steel grade','Bar length, or coil for small diameters','Rib pattern and relative rib area','Weldability and bend behaviour','Bundle weight and tagging'],
+      u:['Reinforced concrete frames and cores','Foundations, rafts and piling','Slabs, bridge decks and retaining walls','Precast and prestressed elements']},
+  u2:{d:'Hot-rolled steel in coil, produced as feedstock for drawing and cold forming rather than for use as delivered.',
+      s:['Coil diameter and steel grade','Carbon range and residual limits','Coil weight, inner and outer diameter','Surface and scale condition','Dimensional tolerance and ovality','Decarburisation depth where it matters'],
+      u:['Wire drawing','Fasteners, nails and screws','Welding wire and electrodes','Mesh, rope and spring wire']},
+  u3:{d:'Hot-rolled steel plate — flat product supplied cut to size, the base material for anything fabricated from sheet steel thicker than strip.',
+      s:['Steel grade and delivery condition','Thickness, width and length','Flatness and edge condition (mill or trimmed)','Surface quality','Impact test temperature where required','Ultrasonic testing where required'],
+      u:['Shipbuilding and offshore structures','Pressure vessels, tanks and silos','Structural fabrication and bridges','Heavy machinery and earthmoving equipment']},
+  u4:{d:'Hot-rolled U-section. Stiff in one axis and easy to bolt or weld along the web, which makes it the default for secondary structure.',
+      s:['Profile number or section size','Steel grade','Length','Web and flange thickness tolerance','Straightness and twist'],
+      u:['Purlins, girts and secondary framing','Machine bases and frames','Vehicle and trailer chassis','Support and bracing structures']},
+  u5:{d:'Hot-rolled I- and H-sections. The primary load-carrying member in framed structures, sized by span and load rather than by preference.',
+      s:['Profile designation and section depth','Steel grade','Length','Weight per metre','Flange and web tolerances','Camber and straightness'],
+      u:['Building frames and industrial halls','Bridges and viaducts','Crane runway beams','Heavy equipment platforms']},
+  u6:{d:'Hot-rolled L-section, equal or unequal leg. The cheapest way to get a stiff corner into a structure.',
+      s:['Leg dimensions and thickness','Steel grade','Length','Tolerance class','Straightness'],
+      u:['Trusses and lattice towers','Brackets, cleats and connections','Frames, racking and shelving','Edge protection and bracing']},
+  u7:{d:'Hot-rolled bar in round, square and hexagonal section, supplied as stock for machining, forging and fixing.',
+      s:['Cross-section and dimension','Steel grade','Delivery condition (as-rolled, annealed, normalised)','Tolerance class','Straightness','Cut length or random length'],
+      u:['Machined shafts, pins and bushings','Forging and upsetting stock','Fasteners and anchor bolts','General engineering fabrication']},
+  u8:{d:'Rolled steel props and arch segments for underground support, designed to yield in a controlled way rather than fail when the roof loads them.',
+      s:['Section profile and weight per metre','Steel grade and yield strength','Element length','Rated working load','Coupling and clamp type'],
+      u:['Roadway and gate-road support in coal mines','Ore mine development headings','Temporary support during driving']},
+  u9:{d:'Hot-rolled unsymmetrical bulb section — a flat with a thickened bulb along one edge, which stiffens a plate without the weight of a welded-on angle.',
+      s:['Profile number','Shipbuilding steel grade','Length','Dimensional tolerance','Classification society approval where required'],
+      u:['Hull stiffeners and longitudinals','Deck and bulkhead framing','Barge and inland vessel construction']},
+  u10:{d:'Crude iron from the blast furnace, cast into ingots. High carbon and not usable as-is — it is a charge material, not a product.',
+      s:['Silicon and manganese content','Sulphur and phosphorus limits','Carbon content','Ingot weight and size','Chemical class (foundry or steelmaking)'],
+      u:['Foundry charge for grey and ductile iron','Converter and electric-arc furnace charge','Ductile iron and cast components']},
+  u11:{d:'Continuously cast semi-finished flat product. Slabs exist to be re-rolled; their value is in internal soundness, not appearance.',
+      s:['Steel grade','Thickness, width and length','Casting route and internal quality','Surface condition and scarfing','Weight per piece'],
+      u:['Re-rolling to hot-rolled plate','Hot strip mill feedstock','Coil and sheet production']},
+  u12:{d:'Continuously cast square semi-finished long product — the feedstock every long-product rolling mill runs on.',
+      s:['Section size','Steel grade and carbon range','Length','Casting route','Internal soundness and corner quality'],
+      u:['Re-rolling to rebar and wire rod','Re-rolling to sections and bar','Forging and seamless tube stock']},
+  u13:{d:'Iron-silicon alloy used to remove dissolved oxygen from liquid steel and to carry silicon into the bath. Sold by silicon content and size fraction.',
+      s:['Silicon content (typically 65% or 75% grades)','Aluminium, carbon, phosphorus and sulphur limits','Size fraction','Packing — big bags, drums or bulk'],
+      u:['Deoxidation in steelmaking','Silicon alloying','Inoculation in ductile iron','Ferroalloy and welding consumable production']},
+  u14:{d:'Manganese-silicon alloy. Deoxidises and alloys in one addition, which is why it is the highest-volume ferroalloy in steelmaking.',
+      s:['Manganese and silicon content','Carbon, phosphorus and sulphur limits','Size fraction','Packing — big bags or bulk'],
+      u:['Combined deoxidation and manganese alloying','Carbon and low-alloy steel production','Feedstock for refined ferromanganese']},
+  u15:{d:'Metallurgical coke and breeze. Fuel, reductant and the structural support that holds the blast furnace burden open — the last of those is why quality matters so much.',
+      s:['Ash, sulphur, moisture and volatile matter','Size fraction','Mechanical strength (drum indices)','CSR and CRI where specified','Fixed carbon'],
+      u:['Blast furnace fuel and reductant','Foundry cupola melting','Ferroalloy and calcium carbide production','Sintering fuel (breeze)']},
+  u16:{d:'Crystalline (NH₄)₂SO₄ recovered from coke-oven gas. A by-product of coke chemistry that happens to be a good nitrogen and sulphur fertilizer.',
+      s:['Nitrogen content','Sulphur content','Moisture and free acid','Crystal size distribution','Packing — bulk, big bags or 50 kg bags'],
+      u:['Nitrogen-sulphur fertilizer, straight or blended','Feedstock for compound fertilizer','Industrial and technical applications']},
+  u17:{d:'Fine iron ore for agglomeration. Too fine to charge directly into a blast furnace, so it is sintered or pelletised first.',
+      s:['Iron content','Silica, alumina, phosphorus and sulphur','Moisture','Size distribution','Loss on ignition'],
+      u:['Sinter plant feed','Pelletising feed','Blast furnace burden preparation']},
+  u18:{d:'Viscous by-product of coal carbonisation and the starting point for a long chain of carbon chemistry.',
+      s:['Density and viscosity','Water and ash content','Distillation fractions','Naphthalene content','Quinoline-insoluble content'],
+      u:['Pitch for graphite and aluminium electrodes','Carbon black feedstock','Creosote and wood preservatives','Chemical intermediates']},
+  u19:{d:'Light oil recovered from coke-oven gas, containing benzene with toluene and xylene. Refined further before end use.',
+      s:['Benzene content','Density','Distillation range','Sulphur and non-aromatic content','Water content'],
+      u:['Feedstock for refined benzene, toluene and xylene','Cyclohexane and downstream polymer production','Solvents and chemical intermediates']},
+  u20:{d:'Limestone sized for metallurgical use. Its job is to take silica and alumina out of the melt and into the slag.',
+      s:['CaO content','Silica and magnesia content','Size fraction','Moisture','Loss on ignition'],
+      u:['Blast furnace and converter flux','Lime and quicklime production','Sinter plant feed','Construction aggregate (rubble)']},
+  u21:{d:'Industrial gases from air separation — argon, oxygen and nitrogen in liquid or gaseous form, plus the rare-gas mixtures recovered alongside them.',
+      s:['Purity and impurity limits','Phase — liquid or gaseous','Delivery form — tanker, cylinder bundle or on-site','Pressure and fill volume','Analysis certificate'],
+      u:['Shielding gas for welding and cutting','Oxygen for steelmaking and cutting','Nitrogen for inerting, purging and cooling','Krypton-xenon for lighting and insulating glazing','Neon-helium for lasers and electronics']},
+  u22:{d:'Blast furnace slag, either water-quenched into a glassy granulate or aged from the dump. The two behave completely differently and are not interchangeable.',
+      s:['Glass content and basicity (granulated)','Chemical composition','Moisture','Size fraction','Grindability where used in cement'],
+      u:['Ground granulated slag as clinker replacement','Road base and sub-base','Concrete and asphalt aggregate','Fill and embankment material']},
+  u23:{d:'Crushed steelmaking slag graded as construction aggregate. Denser and harder than most natural stone, which is what makes it useful.',
+      s:['Fraction and grading','Compressive strength','Frost resistance','Volumetric stability','Chemical composition'],
+      u:['Road construction base layers','Railway ballast','Concrete and asphalt aggregate','Ground stabilisation']},
+  u24:{d:'Lump quicklime (CaO) from calcined limestone. Sold on reactivity as much as on chemistry, because slow lime is of little use in a converter.',
+      s:['Available CaO','Reactivity (slaking behaviour)','Size fraction','Magnesia content','Loss on ignition and residual CO₂'],
+      u:['Slag former in converter and electric-arc steelmaking','Water and effluent treatment','Construction and soil stabilisation','Chemical and pulp processing']},
+  u25:{d:'Slag tapped from the converter, crushed and graded. Carries residual iron and lime, so it goes back into the process or out as aggregate.',
+      s:['Iron, CaO and magnesia content','Free lime content','Size fraction','Volumetric stability'],
+      u:['Internal recycling as sinter and blast furnace feed','Road construction aggregate','Agricultural liming material']}
+  };
+
   /* the six positions shown on the home page */
   var FEATURED = ['u1','u2','u3','u10','u13','u15'];
   var IMG = 'img/';
@@ -63,7 +147,7 @@
         '<h3>' + p[0] + '</h3>' +
         '<span class="card__more">More details ' + ARROW + '</span>' +
       '</div>' +
-      '<a class="card__link" href="products.html#' + p[1] + '" aria-label="' + p[0] + ' — More details"></a>';
+      '<a class="card__link" href="product.html?id=' + p[1] + '" aria-label="' + p[0] + ' — More details"></a>';
   }
   function renderCards(grid, list, perRow){
     list.forEach(function(p, i){
@@ -83,18 +167,6 @@
   if (grid){
     if (grid.dataset.mode === 'all'){
       renderCards(grid, PRODUCTS, 4);
-      /* arriving from a "More details" link — go to that card and mark it */
-      var hash = location.hash.replace('#','');
-      if (hash){
-        var target = document.getElementById(hash);
-        if (target){
-          target.classList.add('in','card--hit');
-          requestAnimationFrame(function(){
-            target.scrollIntoView({ block: 'center', behavior: RM ? 'auto' : 'smooth' });
-          });
-          setTimeout(function(){ target.classList.remove('card--hit'); }, 3500);
-        }
-      }
     } else {
       renderCards(grid, PRODUCTS.filter(function(p){ return FEATURED.indexOf(p[1]) > -1; }), 3);
       /* last card of the phone rail — the way out to the full catalogue */
@@ -449,6 +521,61 @@
       } else { say(v); }
     });
   });
+
+
+  /* ============================================================
+     product detail page — driven by ?id=uN
+     ============================================================ */
+  var detail = $('#detail');
+  if (detail){
+    var id = (location.search.match(/[?&]id=([a-z0-9]+)/i) || [])[1];
+    var row = PRODUCTS.filter(function(p){ return p[1] === id; })[0];
+    if (!row){
+      location.replace('products.html');
+    } else {
+      var meta = INFO[id] || { d:'', s:[], u:[] };
+      var siblings = PRODUCTS.filter(function(p){ return p[2] === row[2] && p[1] !== id; }).slice(0, 4);
+      var idx = PRODUCTS.indexOf(row);
+      var prev = PRODUCTS[(idx - 1 + PRODUCTS.length) % PRODUCTS.length];
+      var next = PRODUCTS[(idx + 1) % PRODUCTS.length];
+      var li = function(t){ return '<li>' + t + '</li>'; };
+      var card = function(p){
+        return '<a class="rel" href="product.html?id=' + p[1] + '">' +
+               '<span class="rel__ph"><img src="' + IMG + p[1] + '.jpg" alt="" loading="lazy"></span>' +
+               '<span class="rel__t">' + p[0] + '</span></a>';
+      };
+
+      document.title = row[0].split(' | ')[0] + ' — Arc Trading';
+      $('#d-crumb').textContent = row[0].split(' | ')[0];
+      $('#d-tag').textContent = GLABEL[row[2]];
+      $('#d-title').textContent = row[0];
+      $('#d-lede').textContent = meta.d;
+      $('#d-img').src = IMG + id + '.jpg';
+      $('#d-spec').innerHTML = meta.s.map(li).join('');
+      $('#d-use').innerHTML  = meta.u.map(li).join('');
+      $('#d-ask').href = 'contact.html?product=' + encodeURIComponent(row[0]);
+      $('#d-prev').href = 'product.html?id=' + prev[1];
+      $('#d-prev-t').textContent = prev[0].split(' | ')[0];
+      $('#d-next').href = 'product.html?id=' + next[1];
+      $('#d-next-t').textContent = next[0].split(' | ')[0];
+      if (siblings.length){
+        $('#d-rel').innerHTML = siblings.map(card).join('');
+      } else {
+        $('#d-rel-sec').remove();
+      }
+      detail.classList.add('ready');
+    }
+  }
+
+  /* an enquiry that arrives from a product page starts with it filled in */
+  var pre = (location.search.match(/[?&]product=([^&]+)/) || [])[1];
+  if (pre && $('#f-msg')){
+    try {
+      var nameOf = decodeURIComponent(pre.replace(/\+/g, ' '));
+      $('#f-msg').value = 'Enquiry: ' + nameOf + '\n\nVolume:\nGrade or standard:\nDestination:\nDelivery terms:';
+      $('#f-msg').setAttribute('placeholder', ' ');
+    } catch (e) {}
+  }
 
   /* ============================================================
      map — the embed only takes gestures once it is asked for
