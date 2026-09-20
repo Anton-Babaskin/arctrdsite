@@ -21,14 +21,20 @@
          copied:'Copied', fill:'Please fill in all fields', sent:'Message sent',
          thanks:'Thank you — our specialist will contact you shortly', send:'Send message',
          enquiry:'Enquiry: ', fields:'Volume:\nGrade or standard:\nDestination:\nDelivery terms:',
-         vol:'Production volume', spec:'Specification', app:'Application' },
+         vol:'Production volume', spec:'Specification', app:'Application',
+         askT:'Specification on request',
+         askB:'This position is supplied to the buyer\u2019s specification. Send us the grade, standard, size and volume you need and we will confirm what the mills in the network can produce.',
+         askC:'Request the specification' },
     tr:{ more:'Daha fazla detay', allTitle:'25 kalemin tamamı',
          allSub:'Uzun ürünler, yarı mamuller, ferroalaşımlar, kimyasallar, hammaddeler ve gazlar',
          allLink:'Kataloğu aç', slide:'Slayt ',
          copied:'Kopyalandı', fill:'Lütfen tüm alanları doldurun', sent:'Mesaj gönderildi',
          thanks:'Teşekkürler — uzmanımız kısa süre içinde sizinle iletişime geçecektir', send:'Mesaj gönder',
          enquiry:'Talep: ', fields:'Miktar:\nKalite veya standart:\nVarış noktası:\nTeslim koşulu:',
-         vol:'Üretim hacmi', spec:'Spesifikasyon', app:'Kullanım alanları' }
+         vol:'Üretim hacmi', spec:'Spesifikasyon', app:'Kullanım alanları',
+         askT:'Spesifikasyon talep üzerine',
+         askB:'Bu kalem alıcının spesifikasyonuna göre tedarik edilir. İhtiyacınız olan kaliteyi, standardı, ölçüyü ve miktarı iletin; ağdaki fabrikaların neyi üretebileceğini teyit edelim.',
+         askC:'Spesifikasyon isteyin' }
   }[LANG];
 
   var GLABEL_TR = { all:'Tüm ürünler', long:'Uzun ürünler', semi:'Yarı mamuller',
@@ -272,7 +278,50 @@
   u6:{ app:['METAL STRUCTURES','SUPPORTS OF POWER LINES','BRIDGE CONSTRUCTION','BUILDING OVERLAPS'],
        rows:[['STANDARD SIZES','75×6/8 · 90×6/7/8 · 100×7/8/10/12 · 110×7/8 · 125×8/9/10/12'],
              ['STEEL GRADE','ST 1-5 PS / SP · 09G2S · 12G2FD · S235JO · S235JR · S235JRG1 · S235JRG2 · S355JR'],
-             ['STANDARDS','GOST 380 · GOST 8509 · GOST 19281']]}
+             ['STANDARDS','GOST 380 · GOST 8509 · GOST 19281']]},
+  u7:{ app:['MECHANICAL ENGINEERING','REINFORCED CONCRETE STRUCTURES'],
+       rows:[['STANDARD SIZES','20 · 22 · 25 · 32 · 36 · 40'],
+             ['STEEL GRADE','ST 1-5 PS / SP · ST 10-85 · alloyed steel grades'],
+             ['STANDARDS','GOST 1050 · GOST 14959 · GOST 380']]},
+  u8:{ app:['SUPPORTS FOR MINING OPERATIONS'],
+       rows:[['STANDARD SIZES','17 · 22 · 27 · 33'],
+             ['STEEL GRADE','ST5PS'],
+             ['STANDARDS','GOST 18662']]},
+  u9:{ app:['SHIPBUILDING'],
+       rows:[['STANDARD SIZES','10 · 12 · 14 A, B · 16 A, B · 18 A, B'],
+             ['STEEL GRADE','A/D32 · A/D36 · A/D40'],
+             ['STANDARDS','GOST R 52927 · GOST 5521 · River Register · Maritime Register']]},
+  u10:{ app:['STEEL SMELTING','MECHANICAL ENGINEERING FOR SMELTING'],
+       rows:[['STANDARD SIZES','200×200×115'],
+             ['GRADES','P1 · P2 · PL-1 · PL-2 · L1 – L6'],
+             ['STANDARDS','GOST 805 · GOST 4832']]},
+  u11:{ app:['PRODUCTION OF FLAT ROLLED PRODUCTS (SHEET, ROLL)'],
+       rows:[['STANDARD SIZES','Thickness 200 · 220 · 250 · 300 mm · Width 1000-1800 mm · Length 4500-12000 mm'],
+             ['GRADES','ST 1-5 PS / SP · ST 10-85 · SAE 1006, 1008, 1010 · S235JRG2 · S275JO · D32, D36'],
+             ['STANDARDS','GOST 19281 · GOST 380 · GOST 14959 · GOST R 52927 · ASTM A 510M-03 · TU U 14-2-1253']]},
+  u12:{ app:['PRODUCTION (REBARS, WIRE ROD, STYLE)'],
+       rows:[['STANDARD SIZES','100×100 · 120×120 · 125×125 · 130×130 · 150×150'],
+             ['GRADES','ST 1-5 PS / SP · ST 10-85 · SAE 1006, 1008, 1010 · S235JRG2 · S275JO · D32, D36 · alloyed steel grades'],
+             ['STANDARDS','GOST 19281 · GOST 380 · GOST 14959 · GOST R 52927 · ASTM A 510M-03 · TU U 14-2-1253']]},
+  u13:{ app:['INCREASING THE STRENGTH CHARACTERISTICS OF STEEL'],
+       rows:[['STANDARD SIZES','0-3 · 0-10 · 10-50 · 10-100 · 50-200 · 0-300'],
+             ['GRADE','FS75 · FS65 · FS45'],
+             ['STANDARDS','GOST 1415-93']]},
+  u14:{ app:['DEOXIDIZER AND ALLOYING ELEMENT FOR STEEL'],
+       rows:[['GRADES','MNS17'],
+             ['STANDARDS','GOST 4756-91']]},
+  u15:{ app:['FUEL FOR METALLURGICAL PRODUCTION'],
+       rows:[['PRODUCT TYPE / GRADES','Coke blast furnace — KD1, KD2, KD3 · Coke nut — OK1, OK2, OK3 · Coke change — MK1, MK2, MK3'],
+             ['STANDARDS','TU 19.10.10-002-48368873-2023 · TU U 19.1_84200158_011_2019 · TU U 19.1-84200158_004_2018 · TU 19.10.10-006-56936541-2023 · TU D 19.1-50254224-010:2022 · TU D 19.1-84200158-001_2018 · TU 19.10.10-008-56936541-2023 · TU 19.10.10-011-48368873-2023 · TU U 19.1-84200158-005_2018']]},
+  u16:{ app:['FERTILIZER, PROTEIN PURIFICATION IN BIOCHEMISTRY, WATER CHLORINATION ADDITIVE'],
+       rows:[['GRADE','Upper · First'],
+             ['STANDARDS','TU D 20.1-50254224-016:2022 · TU U 20.1-84200158-003-2018 · TU 20.15.32-003-56936541-2023']]},
+  u17:{ app:['MATERIAL FOR METALLURGICAL PRODUCTION'],
+       rows:[['PRODUCT TYPE / IRON CONTENT','OH-1 — 61% · OH-2 — 58% · AO-1 — 54%'],
+             ['SIZE','Max 20,0 mm — control class 0-10 mm min 85,0% · Max 100,0 mm — max 25,0% · Max 100,0 mm — max 15,0%']]},
+  u18:{ app:['RAW MATERIALS FOR THE PRODUCTION OF NAPHTHALENE, CRESOLS AND ANTHRACENE'],
+       rows:[['GRADE','A · B · C · D'],
+             ['STANDARDS','TU D 19.1-50254224-017:2022 · TU U 19.1-84200158-002_2018']]}
   };
 
   /* Turkish for the labels above; the codes, grades and standards stay as written */
@@ -291,13 +340,30 @@
     'PIPE MANUFACTURING':'Boru üretimi',
     'SUPPORTS OF POWER LINES':'Enerji nakil hattı direkleri',
     'SUPPORTS OF STRUCTURES':'Yapı taşıyıcıları',
-    'BUILDING OVERLAPS':'Bina döşemeleri'
+    'BUILDING OVERLAPS':'Bina döşemeleri',
+    'SUPPORTS FOR MINING OPERATIONS':'Madencilik işlemleri için tahkimat',
+    'SHIPBUILDING':'Gemi inşa',
+    'STEEL SMELTING':'Çelik ergitme',
+    'MECHANICAL ENGINEERING FOR SMELTING':'Ergitme için makine imalatı',
+    'PRODUCTION OF FLAT ROLLED PRODUCTS (SHEET, ROLL)':'Yassı haddelenmiş ürün üretimi (sac, rulo)',
+    'PRODUCTION (REBARS, WIRE ROD, STYLE)':'Üretim (inşaat demiri, filmaşin, profil)',
+    'INCREASING THE STRENGTH CHARACTERISTICS OF STEEL':'Çeliğin dayanım özelliklerini artırma',
+    'DEOXIDIZER AND ALLOYING ELEMENT FOR STEEL':'Çelik için deoksidan ve alaşım elementi',
+    'FUEL FOR METALLURGICAL PRODUCTION':'Metalurjik üretim için yakıt',
+    'FERTILIZER, PROTEIN PURIFICATION IN BIOCHEMISTRY, WATER CHLORINATION ADDITIVE':'Gübre, biyokimyada protein saflaştırma, su klorlama katkısı',
+    'MATERIAL FOR METALLURGICAL PRODUCTION':'Metalurjik üretim için malzeme',
+    'RAW MATERIALS FOR THE PRODUCTION OF NAPHTHALENE, CRESOLS AND ANTHRACENE':'Naftalin, krezol ve antrasen üretimi için hammadde'
   };
   var ROW_TR = {
     'STANDARD SIZES':'STANDART ÖLÇÜLER',
     'STEEL GRADE':'ÇELİK KALİTESİ',
     'STEEL GRADE / STRENGTH CLASSES':'ÇELİK KALİTESİ / DAYANIM SINIFLARI',
-    'STANDARDS':'STANDARTLAR'
+    'STANDARDS':'STANDARTLAR',
+    'GRADE':'KALİTE',
+    'GRADES':'KALİTELER',
+    'PRODUCT TYPE / GRADES':'ÜRÜN TİPİ / KALİTELER',
+    'PRODUCT TYPE / IRON CONTENT':'ÜRÜN TİPİ / DEMİR İÇERİĞİ',
+    'SIZE':'BOYUT'
   };
 
   /* the six positions shown on the home page */
@@ -783,7 +849,17 @@
           var head = LANG === 'tr' ? (ROW_TR[r[0]] || r[0]) : r[0];
           return '<tr><th>' + head + '</th><td>' + r[1] + '</td></tr>';
         }).join('');
-      } else if (tbl){ tbl.remove(); }
+      } else if (tbl){
+        tbl.className = 'askspec';
+        tbl.innerHTML =
+          '<div class="askspec__in">' +
+            '<p class="eyebrow">' + UI.spec + '</p>' +
+            '<h2>' + UI.askT + '</h2>' +
+            '<p>' + UI.askB + '</p>' +
+            '<a class="btn btn--amber" href="contact.html?product=' +
+              encodeURIComponent(row[0]) + '" data-mag>' + UI.askC + ' ' + ARROW + '</a>' +
+          '</div>';
+      }
       $('#d-ask').href = 'contact.html?product=' + encodeURIComponent(row[0]);
       $('#d-prev').href = 'product.html?id=' + prev[1];
       $('#d-prev-t').textContent = prev[0].split(' | ')[0];
