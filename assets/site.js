@@ -11,6 +11,28 @@
   /* ============================================================
      catalogue — names, order and links kept as on the live site
      ============================================================ */
+  var LANG = (document.documentElement.lang || 'en').toLowerCase() === 'tr' ? 'tr' : 'en';
+  var BASE = document.documentElement.getAttribute('data-base') || '';
+
+  var UI = {
+    en:{ more:'More details', allTitle:'All 25 positions',
+         allSub:'Long products, semi-finished, ferroalloys, chemicals, raw materials and gases',
+         allLink:'Open the catalogue', slide:'Slide ',
+         copied:'Copied', fill:'Please fill in all fields', sent:'Message sent',
+         thanks:'Thank you — our specialist will contact you shortly', send:'Send message',
+         enquiry:'Enquiry: ', fields:'Volume:\nGrade or standard:\nDestination:\nDelivery terms:' },
+    tr:{ more:'Daha fazla detay', allTitle:'25 kalemin tamamı',
+         allSub:'Uzun ürünler, yarı mamuller, ferroalaşımlar, kimyasallar, hammaddeler ve gazlar',
+         allLink:'Kataloğu aç', slide:'Slayt ',
+         copied:'Kopyalandı', fill:'Lütfen tüm alanları doldurun', sent:'Mesaj gönderildi',
+         thanks:'Teşekkürler — uzmanımız kısa süre içinde sizinle iletişime geçecektir', send:'Mesaj gönder',
+         enquiry:'Talep: ', fields:'Miktar:\nKalite veya standart:\nVarış noktası:\nTeslim koşulu:' }
+  }[LANG];
+
+  var GLABEL_TR = { all:'Tüm ürünler', long:'Uzun ürünler', semi:'Yarı mamuller',
+                    ferro:'Ferroalaşımlar', chem:'Kimyasallar',
+                    raw:'Hammadde ve cüruf', gas:'Endüstriyel gazlar' };
+
   var GROUPS = [
     ['all','All products'],
     ['long','Long products'],
@@ -131,11 +153,89 @@
       u:['Internal recycling as sinter and blast furnace feed','Road construction aggregate','Agricultural liming material']}
   };
 
+  var INFO_TR = {
+  u1:{d:'Betonarme için sıcak haddelenmiş nervürlü inşaat demiri. Nervürler sayesinde çubuk betona kenetlenir ve yükü sürtünmeyle değil aderansla aktarır.',
+      s:['Anma çapı','Dayanım sınıfı ve çelik kalitesi','Çubuk boyu veya küçük çaplarda bobin','Nervür deseni ve bağıl nervür alanı','Kaynaklanabilirlik ve bükme davranışı','Demet ağırlığı ve etiketleme'],
+      u:['Betonarme taşıyıcı sistemler ve çekirdekler','Temeller, radye ve kazıklar','Döşemeler, köprü tabliyeleri ve istinat duvarları','Prefabrik ve öngermeli elemanlar']},
+  u2:{d:'Bobin hâlinde sıcak haddelenmiş çelik. Doğrudan kullanım için değil, tel çekme ve soğuk şekillendirme için ara ürün olarak üretilir.',
+      s:['Bobin çapı ve çelik kalitesi','Karbon aralığı ve kalıntı element sınırları','Bobin ağırlığı, iç ve dış çap','Yüzey ve tufal durumu','Ölçü toleransı ve ovallik','Gerektiğinde dekarbürizasyon derinliği'],
+      u:['Tel çekme','Bağlantı elemanları, çivi ve vida','Kaynak teli ve elektrot','Hasır, halat ve yay teli']},
+  u3:{d:'Sıcak haddelenmiş çelik sac — ölçüsünde kesilerek verilen yassı ürün; kalın saçtan imal edilen her şeyin temel malzemesi.',
+      s:['Çelik kalitesi ve teslim durumu','Kalınlık, genişlik ve boy','Düzlük ve kenar durumu (haddelenmiş veya kesilmiş)','Yüzey kalitesi','Gerektiğinde darbe deneyi sıcaklığı','Gerektiğinde ultrasonik muayene'],
+      u:['Gemi inşa ve açık deniz yapıları','Basınçlı kaplar, tanklar ve silolar','Çelik konstrüksiyon ve köprüler','Ağır makine ve iş makinesi imalatı']},
+  u4:{d:'Sıcak haddelenmiş U profil. Tek eksende rijit ve gövdesinden kolayca cıvatalanıp kaynaklanabildiği için ikincil taşıyıcılarda ilk tercih.',
+      s:['Profil numarası veya kesit ölçüsü','Çelik kalitesi','Boy','Gövde ve başlık kalınlık toleransı','Doğrusallık ve burulma'],
+      u:['Aşık, kuşak ve ikincil taşıyıcılar','Makine kaideleri ve şasiler','Araç ve römork şasileri','Destek ve çapraz elemanlar']},
+  u5:{d:'Sıcak haddelenmiş I ve H profiller. Çerçeveli yapılarda ana taşıyıcı eleman; kesiti tercihe göre değil açıklığa ve yüke göre seçilir.',
+      s:['Profil tanımı ve kesit yüksekliği','Çelik kalitesi','Boy','Metre ağırlığı','Başlık ve gövde toleransları','Kamburluk ve doğrusallık'],
+      u:['Bina iskeletleri ve endüstriyel yapılar','Köprüler ve viyadükler','Vinç kirişleri','Ağır ekipman platformları']},
+  u6:{d:'Sıcak haddelenmiş köşebent, eşit veya farklı kollu. Bir yapıya rijit köşe kazandırmanın en ekonomik yolu.',
+      s:['Kol ölçüleri ve kalınlık','Çelik kalitesi','Boy','Tolerans sınıfı','Doğrusallık'],
+      u:['Kafes kirişler ve kafes kuleler','Konsollar, plakalar ve birleşimler','Şasiler, raf ve depolama sistemleri','Kenar koruma ve çaprazlar']},
+  u7:{d:'Yuvarlak, kare ve altıgen kesitte sıcak haddelenmiş çubuk; talaşlı imalat, dövme ve bağlantı için stok malzeme.',
+      s:['Kesit ve ölçü','Çelik kalitesi','Teslim durumu (haddelenmiş, tavlanmış, normalize)','Tolerans sınıfı','Doğrusallık','Sabit veya rastgele boy'],
+      u:['İşlenmiş mil, pim ve burç','Dövme ve yığma stoğu','Bağlantı elemanları ve ankraj cıvataları','Genel makine imalatı']},
+  u8:{d:'Yeraltı tahkimatı için haddelenmiş çelik direk ve bağ segmentleri; tavan yüklendiğinde kırılmak yerine kontrollü şekilde deforme olacak biçimde tasarlanır.',
+      s:['Profil kesiti ve metre ağırlığı','Çelik kalitesi ve akma dayanımı','Eleman boyu','Anma taşıma yükü','Bağlantı ve kelepçe tipi'],
+      u:['Kömür madenlerinde galeri ve ana yol tahkimatı','Cevher madenlerinde hazırlık galerileri','Sürme sırasında geçici tahkimat']},
+  u9:{d:'Sıcak haddelenmiş asimetrik armuz profil — bir kenarı kalınlaştırılmış lama; sacı, kaynaklı köşebendin ağırlığı olmadan rijitleştirir.',
+      s:['Profil numarası','Gemi inşa çelik kalitesi','Boy','Ölçü toleransı','Gerektiğinde klas kuruluşu onayı'],
+      u:['Tekne gövdesi berkitmeleri ve boyuna elemanlar','Güverte ve perde iskeleti','Mavna ve iç su araçları imalatı']},
+  u10:{d:'Yüksek fırından çıkan ve külçe hâlinde dökülen ham demir. Karbonu yüksektir ve olduğu gibi kullanılmaz — bir ürün değil, şarj malzemesidir.',
+      s:['Silisyum ve mangan içeriği','Kükürt ve fosfor sınırları','Karbon içeriği','Külçe ağırlığı ve ölçüsü','Kimyasal sınıf (döküm veya çelik üretimi)'],
+      u:['Gri ve küresel grafitli döküm için şarj','Konverter ve elektrik ark ocağı şarjı','Küresel grafitli demir ve döküm parçalar']},
+  u11:{d:'Sürekli dökümle üretilen yarı mamul yassı ürün. Slab yeniden haddelenmek için vardır; değeri görünüşünde değil iç sağlamlığındadır.',
+      s:['Çelik kalitesi','Kalınlık, genişlik ve boy','Döküm yöntemi ve iç kalite','Yüzey durumu ve taşlama','Parça ağırlığı'],
+      u:['Sıcak haddelenmiş saca yeniden haddeleme','Sıcak şerit haddehanesi şarjı','Bobin ve sac üretimi']},
+  u12:{d:'Sürekli dökümle üretilen kare yarı mamul uzun ürün — her uzun ürün haddehanesinin çalıştığı temel şarj malzemesi.',
+      s:['Kesit ölçüsü','Çelik kalitesi ve karbon aralığı','Boy','Döküm yöntemi','İç sağlamlık ve köşe kalitesi'],
+      u:['İnşaat demiri ve filmaşine yeniden haddeleme','Profil ve çubuğa yeniden haddeleme','Dövme ve dikişsiz boru stoğu']},
+  u13:{d:'Sıvı çelikteki çözünmüş oksijeni almak ve banyoya silisyum kazandırmak için kullanılan demir-silisyum alaşımı. Silisyum içeriğine ve tane boyutuna göre satılır.',
+      s:['Silisyum içeriği (genellikle %65 veya %75 kaliteleri)','Alüminyum, karbon, fosfor ve kükürt sınırları','Tane boyutu','Ambalaj — big bag, varil veya dökme'],
+      u:['Çelik üretiminde deoksidasyon','Silisyum alaşımlama','Küresel grafitli dökümde aşılama','Ferroalaşım ve kaynak sarf malzemesi üretimi']},
+  u14:{d:'Mangan-silisyum alaşımı. Tek ilaveyle hem deoksidasyon hem alaşımlama sağladığı için çelik üretiminde en yüksek hacimli ferroalaşımdır.',
+      s:['Mangan ve silisyum içeriği','Karbon, fosfor ve kükürt sınırları','Tane boyutu','Ambalaj — big bag veya dökme'],
+      u:['Birleşik deoksidasyon ve mangan alaşımlama','Karbon ve düşük alaşımlı çelik üretimi','Rafine ferromangan için şarj']},
+  u15:{d:'Metalurjik kok ve kok tozu. Yakıt, indirgeyici ve yüksek fırın şarjını açık tutan taşıyıcı yapı — sonuncusu kalitenin neden bu kadar önemli olduğunu açıklar.',
+      s:['Kül, kükürt, nem ve uçucu madde','Tane boyutu','Mekanik dayanım (tambur indisleri)','Belirtildiğinde CSR ve CRI','Sabit karbon'],
+      u:['Yüksek fırında yakıt ve indirgeyici','Döküm kupol ocağında ergitme','Ferroalaşım ve kalsiyum karbür üretimi','Sinterde yakıt (kok tozu)']},
+  u16:{d:'Kok gazından geri kazanılan kristal (NH₄)₂SO₄. Kok kimyasının yan ürünüdür ve iyi bir azot-kükürt gübresidir.',
+      s:['Azot içeriği','Kükürt içeriği','Nem ve serbest asit','Kristal boyut dağılımı','Ambalaj — dökme, big bag veya 50 kg çuval'],
+      u:['Tek başına veya harmanlanmış azot-kükürt gübresi','Kompoze gübre için hammadde','Endüstriyel ve teknik kullanımlar']},
+  u17:{d:'Aglomerasyon için ince demir cevheri. Doğrudan yüksek fırına şarj edilemeyecek kadar incedir, önce sinterlenir veya peletlenir.',
+      s:['Demir içeriği','Silis, alümina, fosfor ve kükürt','Nem','Tane boyut dağılımı','Kızdırma kaybı'],
+      u:['Sinter tesisi şarjı','Pelet tesisi şarjı','Yüksek fırın şarj hazırlığı']},
+  u18:{d:'Kömür karbonizasyonunun viskoz yan ürünü ve uzun bir karbon kimyası zincirinin başlangıç noktası.',
+      s:['Yoğunluk ve viskozite','Su ve kül içeriği','Damıtma fraksiyonları','Naftalin içeriği','Kinolinde çözünmeyen madde'],
+      u:['Grafit ve alüminyum elektrotları için zift','Karbon siyahı hammaddesi','Kreozot ve ahşap koruyucular','Kimyasal ara ürünler']},
+  u19:{d:'Kok gazından geri kazanılan, benzenin yanı sıra toluen ve ksilen içeren hafif yağ. Nihai kullanımdan önce rafine edilir.',
+      s:['Benzen içeriği','Yoğunluk','Damıtma aralığı','Kükürt ve aromatik olmayan madde','Su içeriği'],
+      u:['Rafine benzen, toluen ve ksilen hammaddesi','Siklohekzan ve devamındaki polimer üretimi','Solventler ve kimyasal ara ürünler']},
+  u20:{d:'Metalurjik kullanım için boyutlandırılmış kireçtaşı. Görevi, silis ve alüminayı ergiyikten alıp cürufa taşımaktır.',
+      s:['CaO içeriği','Silis ve magnezya içeriği','Tane boyutu','Nem','Kızdırma kaybı'],
+      u:['Yüksek fırın ve konverter flaksı','Kireç ve sönmemiş kireç üretimi','Sinter tesisi şarjı','İnşaat agregası (moloz)']},
+  u21:{d:'Hava ayrıştırmasından elde edilen endüstriyel gazlar — sıvı veya gaz hâlde argon, oksijen ve azot ile bunlarla birlikte kazanılan soy gaz karışımları.',
+      s:['Saflık ve safsızlık sınırları','Faz — sıvı veya gaz','Teslim şekli — tanker, tüp demeti veya sahada üretim','Basınç ve dolum miktarı','Analiz sertifikası'],
+      u:['Kaynak ve kesmede koruyucu gaz','Çelik üretimi ve kesme için oksijen','İnertleme, süpürme ve soğutma için azot','Aydınlatma ve yalıtım camında kripton-ksenon','Lazer ve elektronikte neon-helyum']},
+  u22:{d:'Yüksek fırın cürufu; ya suyla ani soğutularak camsı granüle edilir ya da döküm sahasında yaşlandırılır. İkisi tamamen farklı davranır ve birbirinin yerine geçmez.',
+      s:['Cam içeriği ve bazikliği (granüle)','Kimyasal bileşim','Nem','Tane boyutu','Çimentoda kullanılıyorsa öğütülebilirlik'],
+      u:['Klinker ikamesi olarak öğütülmüş granüle cüruf','Yol temeli ve alt temel','Beton ve asfalt agregası','Dolgu ve set malzemesi']},
+  u23:{d:'İnşaat agregası olarak sınıflandırılmış kırılmış çelikhane cürufu. Çoğu doğal taştan daha yoğun ve sert olması onu kullanışlı kılar.',
+      s:['Fraksiyon ve granülometri','Basınç dayanımı','Dona dayanıklılık','Hacimsel kararlılık','Kimyasal bileşim'],
+      u:['Yol inşaatında temel tabakaları','Demiryolu balastı','Beton ve asfalt agregası','Zemin stabilizasyonu']},
+  u24:{d:'Kalsine kireçtaşından elde edilen parça sönmemiş kireç (CaO). Kimyasal bileşimi kadar reaktivitesiyle de satılır, çünkü yavaş kireç konverterde işe yaramaz.',
+      s:['Mevcut CaO','Reaktivite (sönme davranışı)','Tane boyutu','Magnezya içeriği','Kızdırma kaybı ve kalıntı CO₂'],
+      u:['Konverter ve elektrik ark ocağında cüruf yapıcı','Su ve atık su arıtma','İnşaat ve zemin stabilizasyonu','Kimya ve kâğıt hamuru işlemleri']},
+  u25:{d:'Konverterden alınan, kırılmış ve sınıflandırılmış cüruf. İçinde kalıntı demir ve kireç taşıdığı için ya sürece geri döner ya da agrega olarak çıkar.',
+      s:['Demir, CaO ve magnezya içeriği','Serbest kireç içeriği','Tane boyutu','Hacimsel kararlılık'],
+      u:['Sinter ve yüksek fırın şarjı olarak iç geri dönüşüm','Yol inşaatı agregası','Tarımsal kireçleme malzemesi']}
+  };
+
   /* the six positions shown on the home page */
   var FEATURED = ['u1','u2','u3','u10','u13','u15'];
-  var IMG = 'img/';
+  var IMG = BASE + 'img/';
   var GLABEL = {};
-  GROUPS.forEach(function(g){ GLABEL[g[0]] = g[1]; });
+  GROUPS.forEach(function(g){ GLABEL[g[0]] = LANG === 'tr' ? GLABEL_TR[g[0]] : g[1]; });
   window.ARC = { PRODUCTS: PRODUCTS, GROUPS: GROUPS, IMG: IMG };
 
   function cardHTML(p){
@@ -145,9 +245,9 @@
       '</div>' +
       '<div class="card__body">' +
         '<h3>' + p[0] + '</h3>' +
-        '<span class="card__more">More details ' + ARROW + '</span>' +
+        '<span class="card__more">' + UI.more + ' ' + ARROW + '</span>' +
       '</div>' +
-      '<a class="card__link" href="product.html?id=' + p[1] + '" aria-label="' + p[0] + ' — More details"></a>';
+      '<a class="card__link" href="product.html?id=' + p[1] + '" aria-label="' + p[0] + ' — ' + UI.more + '"></a>';
   }
   function renderCards(grid, list, perRow){
     list.forEach(function(p, i){
@@ -173,9 +273,9 @@
       var more = document.createElement('a');
       more.className = 'card card--more';
       more.href = 'products.html';
-      more.innerHTML = '<div><b>All 25 positions</b>' +
-        '<span>Long products, semi-finished, ferroalloys, chemicals, raw materials and gases</span>' +
-        '<em>Open the catalogue ' + ARROW + '</em></div>';
+      more.innerHTML = '<div><b>' + UI.allTitle + '</b>' +
+        '<span>' + UI.allSub + '</span>' +
+        '<em>' + UI.allLink + ' ' + ARROW + '</em></div>';
       grid.appendChild(more);
 
       /* rail progress indicator */
@@ -279,7 +379,7 @@
       var d = document.createElement('button');
       d.className = 'dot' + (i === 0 ? ' on' : '');
       d.style.setProperty('--dur', (DUR / 1000) + 's');
-      d.setAttribute('aria-label', 'Slide ' + (i + 1));
+      d.setAttribute('aria-label', UI.slide + (i + 1));
       d.innerHTML = '<b></b><svg width="34" height="34" viewBox="0 0 34 34"><circle cx="17" cy="17" r="15.9"/></svg>';
       d.addEventListener('click', function(){ go(i, true); });
       dotsBox.appendChild(d);
@@ -557,7 +657,7 @@
     el.addEventListener('click', function(){
       var v = el.dataset.copy;
       if (navigator.clipboard && navigator.clipboard.writeText){
-        navigator.clipboard.writeText(v).then(function(){ say('Copied'); }, function(){ say(v); });
+        navigator.clipboard.writeText(v).then(function(){ say(UI.copied); }, function(){ say(v); });
       } else { say(v); }
     });
   });
@@ -573,7 +673,8 @@
     if (!row){
       location.replace('products.html');
     } else {
-      var meta = INFO[id] || { d:'', s:[], u:[] };
+      var TABLE = LANG === 'tr' ? INFO_TR : INFO;
+      var meta = TABLE[id] || INFO[id] || { d:'', s:[], u:[] };
       var siblings = PRODUCTS.filter(function(p){ return p[2] === row[2] && p[1] !== id; }).slice(0, 4);
       var idx = PRODUCTS.indexOf(row);
       var prev = PRODUCTS[(idx - 1 + PRODUCTS.length) % PRODUCTS.length];
@@ -612,7 +713,7 @@
   if (pre && $('#f-msg')){
     try {
       var nameOf = decodeURIComponent(pre.replace(/\+/g, ' '));
-      $('#f-msg').value = 'Enquiry: ' + nameOf + '\n\nVolume:\nGrade or standard:\nDestination:\nDelivery terms:';
+      $('#f-msg').value = UI.enquiry + nameOf + '\n\n' + UI.fields;
       $('#f-msg').setAttribute('placeholder', ' ');
     } catch (e) {}
   }
@@ -635,17 +736,17 @@
     form.addEventListener('submit', function(e){
       e.preventDefault();
       var name = $('#f-name').value.trim(), mail = $('#f-mail').value.trim(), msg = $('#f-msg').value.trim();
-      if (!name || !mail || !msg || mail.indexOf('@') < 1){ say('Please fill in all fields'); return; }
+      if (!name || !mail || !msg || mail.indexOf('@') < 1){ say(UI.fill); return; }
       if (submit.classList.contains('loading')) return;
       submit.classList.add('loading');
       /* demo endpoint — wire to the real handler on integration */
       setTimeout(function(){
         submit.classList.remove('loading');
         submit.classList.add('done');
-        $('.lbl', submit).textContent = 'Message sent';
-        say('Thank you — our specialist will contact you shortly');
+        $('.lbl', submit).textContent = UI.sent;
+        say(UI.thanks);
         form.reset();
-        setTimeout(function(){ submit.classList.remove('done'); $('.lbl', submit).textContent = 'Send message'; }, 4000);
+        setTimeout(function(){ submit.classList.remove('done'); $('.lbl', submit).textContent = UI.send; }, 4000);
       }, 1300);
     });
   }
