@@ -428,6 +428,46 @@
   }, { threshold: 0.4 });
   $$('[data-count]').forEach(function(el){ cio.observe(el); });
 
+
+  /* ============================================================
+     numbered list — the rail draws itself as you scroll past,
+     each row lights its marker and turns its numeral gold
+     ============================================================ */
+  var rows = $('.rows');
+  if (rows){
+    var items = $$('.row', rows);
+    var fill  = $('.rows__rail i', rows);
+
+    if (RM){
+      items.forEach(function(r){ r.classList.add('on'); });
+      if (fill) fill.style.height = '100%';
+    } else {
+      var rio = new IntersectionObserver(function(en){
+        en.forEach(function(e){
+          if (!e.isIntersecting) return;
+          e.target.classList.add('on');
+          rio.unobserve(e.target);
+        });
+      }, { rootMargin: '0px 0px -28% 0px', threshold: 0.25 });
+      items.forEach(function(r){ rio.observe(r); });
+
+      var railTick = false;
+      var drawRail = function(){
+        railTick = false;
+        if (!fill) return;
+        var r = rows.getBoundingClientRect();
+        var mark = innerHeight * 0.62;                 /* where the line "is" on screen */
+        var p = (mark - r.top) / r.height;
+        fill.style.height = Math.max(0, Math.min(1, p)) * 100 + '%';
+      };
+      addEventListener('scroll', function(){
+        if (!railTick){ railTick = true; requestAnimationFrame(drawRail); }
+      }, { passive: true });
+      addEventListener('resize', drawRail);
+      drawRail();
+    }
+  }
+
   /* ============================================================
      parallax
      ============================================================ */
