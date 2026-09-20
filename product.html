@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/site.css?v=12">
+<link rel="stylesheet" href="assets/site.css?v=13">
 </head>
 <body>
 
@@ -60,6 +60,10 @@
       <div class="detail__intro">
         <h1 id="d-title"></h1>
         <p class="lede" id="d-lede"></p>
+        <div class="volbox" id="d-vol">
+          <span class="volbox__l" id="d-vol-label"></span>
+          <b class="volbox__v" id="d-vol-value"></b>
+        </div>
         <div class="detail__cta">
           <a class="btn btn--amber" id="d-ask" href="contact.html" data-mag>Teklif isteyin <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
           <a class="btn btn--ghost" href="products.html" data-mag>25 kalemin tamamı</a>
@@ -78,6 +82,13 @@
         <ul class="speclist speclist--use" id="d-use"></ul>
       </section>
     </div>
+
+    <section class="spectable" id="d-table">
+      <p class="eyebrow" id="d-table-title"></p>
+      <div class="tbl-wrap">
+        <table class="tbl"><tbody id="d-table-body"></tbody></table>
+      </div>
+    </section>
 
     <nav class="pager">
       <a class="pager__a" id="d-prev" href="#">
@@ -157,6 +168,6 @@
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js" defer></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
-<script src="assets/site.js?v=12" defer></script>
+<script src="assets/site.js?v=13" defer></script>
 </body>
 </html>

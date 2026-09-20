@@ -20,13 +20,15 @@
          allLink:'Open the catalogue', slide:'Slide ',
          copied:'Copied', fill:'Please fill in all fields', sent:'Message sent',
          thanks:'Thank you — our specialist will contact you shortly', send:'Send message',
-         enquiry:'Enquiry: ', fields:'Volume:\nGrade or standard:\nDestination:\nDelivery terms:' },
+         enquiry:'Enquiry: ', fields:'Volume:\nGrade or standard:\nDestination:\nDelivery terms:',
+         vol:'Production volume', spec:'Specification', app:'Application' },
     tr:{ more:'Daha fazla detay', allTitle:'25 kalemin tamamı',
          allSub:'Uzun ürünler, yarı mamuller, ferroalaşımlar, kimyasallar, hammaddeler ve gazlar',
          allLink:'Kataloğu aç', slide:'Slayt ',
          copied:'Kopyalandı', fill:'Lütfen tüm alanları doldurun', sent:'Mesaj gönderildi',
          thanks:'Teşekkürler — uzmanımız kısa süre içinde sizinle iletişime geçecektir', send:'Mesaj gönder',
-         enquiry:'Talep: ', fields:'Miktar:\nKalite veya standart:\nVarış noktası:\nTeslim koşulu:' }
+         enquiry:'Talep: ', fields:'Miktar:\nKalite veya standart:\nVarış noktası:\nTeslim koşulu:',
+         vol:'Üretim hacmi', spec:'Spesifikasyon', app:'Kullanım alanları' }
   }[LANG];
 
   var GLABEL_TR = { all:'Tüm ürünler', long:'Uzun ürünler', semi:'Yarı mamuller',
@@ -229,6 +231,73 @@
   u25:{d:'Konverterden alınan, kırılmış ve sınıflandırılmış cüruf. İçinde kalıntı demir ve kireç taşıdığı için ya sürece geri döner ya da agrega olarak çıkar.',
       s:['Demir, CaO ve magnezya içeriği','Serbest kireç içeriği','Tane boyutu','Hacimsel kararlılık'],
       u:['Sinter ve yüksek fırın şarjı olarak iç geri dönüşüm','Yol inşaatı agregası','Tarımsal kireçleme malzemesi']}
+  };
+
+  /* ============================================================
+     Company data carried over from the old arc-trading.com/service/
+     pages: monthly production volume, the applications the company
+     lists, and the specification table. Transcribed from that site,
+     nothing added.
+     ============================================================ */
+  var VOL = {
+    u1:'> 55 000 mt/month', u2:'< 70 000 mt/month',  u3:'< 80 000 mt/month',
+    u4:'< 25 000 mt/month', u5:'< 25 000 mt/month',  u6:'< 10 000 mt/month',
+    u7:'< 15 000 mt/month', u8:'< 5 000 mt/month',   u9:'< 5 000 mt/month',
+    u10:'< 25 000 mt/month',u11:'< 50 000 mt/month', u12:'< 30 000 mt/month',
+    u13:'< 3 000 mt/month', u14:'< 2 000 mt/month',  u15:'< 100 000 mt/month',
+    u16:'< 3 000 mt/month', u17:'< 100 000 mt/month',u18:'< 6 500 mt/month'
+  };
+
+  var SPEC = {
+  u1:{ app:['COLUMNS OF BUILDINGS','REINFORCED CONCRETE STRUCTURES','REINFORCED CONCRETE PRODUCTS','INDUSTRIAL AND CIVIL BUILDINGS AND STRUCTURES'],
+       rows:[['STANDARD SIZES','10-32 · 8 (packaging)'],
+             ['STEEL GRADE / STRENGTH CLASSES','4SP · 4PS · A500S · A400S · A240S · 25G2S'],
+             ['STANDARDS','GOST 34028 · GOST 34029 · GOST 5781']]},
+  u2:{ app:['WIRE MAKING','LINKING FITTINGS IN THE HOUSING AND COMMUNAL SERVICES','STEEL ROPES AND CABLES','MANUFACTURE OF FASTENERS'],
+       rows:[['STANDARD SIZES','5,5-13 (step 0,5)'],
+             ['STEEL GRADE','ST 1-5 PS / SP · ST 10-85 · SAE 1006-1052 · alloyed steel grades'],
+             ['STANDARDS','GOST 30136 · GOST 1050 · GOST 14959 · ASTM']]},
+  u3:{ app:['METAL STRUCTURES','MECHANICAL ENGINEERING','BRIDGE CONSTRUCTION','PIPE MANUFACTURING'],
+       rows:[['STANDARD SIZES','Thickness 8-50 · Width 1800-2650 · Length 6000-12000'],
+             ['STEEL GRADE','st0, st1, 2, 3, 4, 5, st3gsp, st3gps, st5gps, 09G2S, 17GS, 10G2S1, 17G1S, 09G2D, 09G2, 14G2, PPA, PPB, PPE, PPD, PPA32, PPD32, PPA36, PPD36, 10KhSND, 15KhSND, 08kp-ps, 08, 10-20kp-ps, 20-60, S235JR/JO, S275JR/JRG2, S275JO, S450JO, S355JR/JO, A516/60, A516/70, A131A, B, A283C, A285C, A572/50, A572/42A, 572/55, A572/60, A572/65, SS330, SS400, St37-2, St44-2, P235GH, P265GH, A516/60 MT LTV, A516/70MT LTV, A131 D, A32, D32, A36, D36'],
+             ['STANDARDS','GOST 14637–89 · GOST 19281–89 · GOST 5520 · Russian River Register · GOST 6713 · GOST 1577–93 · EN 10025–94 · EN 10025–2:2004 · ASTM A516/A516M–06 · ASTM A131/A131M–08 · ASTM A283 / A285 · ASTM A572/A572M–07 · JIS G–3101–1995 · DIN 17100 · DIN EN 10028–2 · ASTM A36/A36M–12']]},
+  u4:{ app:['METAL STRUCTURES','SUPPORTS OF POWER LINES','BRIDGE CONSTRUCTION','BUILDING OVERLAPS'],
+       rows:[['STANDARD SIZES','8 · 10 · 12 · 14 · 16 · 18 · 20 · 22 · 24'],
+             ['STEEL GRADE','ST 1-5 PS / SP · 09G2S · 12G2FD · RST 37-2 · ST 37-2 · ST 52-3 · S235JRG2 · S235JO · S235JR · S355JR · S235JRG1'],
+             ['STANDARDS','GOST 380 · GOST 535 · GOST 19281 · GOST 8240 · DIN EN 10025']]},
+  u5:{ app:['METAL STRUCTURES','SUPPORTS OF STRUCTURES','BRIDGE CONSTRUCTION','BUILDING OVERLAPS'],
+       rows:[['STANDARD SIZES','10 · 12 · 14 · 16 · 18 · 20 · 140DIN'],
+             ['STEEL GRADE','ST3PS · 09G2S · 12G2FD · S235JO · S235JR · S235JRG1 · S235JRG2 · S355JR · RST 37-2 · ST 37-2 · ST 52-3'],
+             ['STANDARDS','GOST 8239 · GOST 380 · GOST 535 · GOST 19281 · DIN EN 10025']]},
+  u6:{ app:['METAL STRUCTURES','SUPPORTS OF POWER LINES','BRIDGE CONSTRUCTION','BUILDING OVERLAPS'],
+       rows:[['STANDARD SIZES','75×6/8 · 90×6/7/8 · 100×7/8/10/12 · 110×7/8 · 125×8/9/10/12'],
+             ['STEEL GRADE','ST 1-5 PS / SP · 09G2S · 12G2FD · S235JO · S235JR · S235JRG1 · S235JRG2 · S355JR'],
+             ['STANDARDS','GOST 380 · GOST 8509 · GOST 19281']]}
+  };
+
+  /* Turkish for the labels above; the codes, grades and standards stay as written */
+  var APP_TR = {
+    'COLUMNS OF BUILDINGS':'Bina kolonları',
+    'REINFORCED CONCRETE STRUCTURES':'Betonarme yapılar',
+    'REINFORCED CONCRETE PRODUCTS':'Betonarme ürünler',
+    'INDUSTRIAL AND CIVIL BUILDINGS AND STRUCTURES':'Sanayi ve sivil yapılar',
+    'WIRE MAKING':'Tel üretimi',
+    'LINKING FITTINGS IN THE HOUSING AND COMMUNAL SERVICES':'Konut ve altyapı hizmetlerinde bağlantı donanımları',
+    'STEEL ROPES AND CABLES':'Çelik halat ve kablolar',
+    'MANUFACTURE OF FASTENERS':'Bağlantı elemanı üretimi',
+    'METAL STRUCTURES':'Metal konstrüksiyonlar',
+    'MECHANICAL ENGINEERING':'Makine imalatı',
+    'BRIDGE CONSTRUCTION':'Köprü inşaatı',
+    'PIPE MANUFACTURING':'Boru üretimi',
+    'SUPPORTS OF POWER LINES':'Enerji nakil hattı direkleri',
+    'SUPPORTS OF STRUCTURES':'Yapı taşıyıcıları',
+    'BUILDING OVERLAPS':'Bina döşemeleri'
+  };
+  var ROW_TR = {
+    'STANDARD SIZES':'STANDART ÖLÇÜLER',
+    'STEEL GRADE':'ÇELİK KALİTESİ',
+    'STEEL GRADE / STRENGTH CLASSES':'ÇELİK KALİTESİ / DAYANIM SINIFLARI',
+    'STANDARDS':'STANDARTLAR'
   };
 
   /* the six positions shown on the home page */
@@ -693,7 +762,28 @@
       $('#d-lede').textContent = meta.d;
       $('#d-img').src = IMG + id + '.jpg';
       $('#d-spec').innerHTML = meta.s.map(li).join('');
-      $('#d-use').innerHTML  = meta.u.map(li).join('');
+
+      /* the company's own application list wins over the generic one */
+      var company = SPEC[id];
+      var uses = company ? company.app.map(function(a){
+        return LANG === 'tr' ? (APP_TR[a] || a) : a.charAt(0) + a.slice(1).toLowerCase();
+      }) : meta.u;
+      $('#d-use').innerHTML = uses.map(li).join('');
+
+      var volWrap = $('#d-vol');
+      if (VOL[id]){
+        $('#d-vol-label').textContent = UI.vol;
+        $('#d-vol-value').textContent = VOL[id];
+      } else if (volWrap){ volWrap.remove(); }
+
+      var tbl = $('#d-table');
+      if (company && tbl){
+        $('#d-table-title').textContent = UI.spec;
+        $('#d-table-body').innerHTML = company.rows.map(function(r){
+          var head = LANG === 'tr' ? (ROW_TR[r[0]] || r[0]) : r[0];
+          return '<tr><th>' + head + '</th><td>' + r[1] + '</td></tr>';
+        }).join('');
+      } else if (tbl){ tbl.remove(); }
       $('#d-ask').href = 'contact.html?product=' + encodeURIComponent(row[0]);
       $('#d-prev').href = 'product.html?id=' + prev[1];
       $('#d-prev-t').textContent = prev[0].split(' | ')[0];
