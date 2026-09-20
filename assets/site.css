@@ -407,11 +407,18 @@ html.loaded .hero h1 .ch{animation:chIn .85s var(--ease) forwards}
 }
 .cap__c::after{content:"";position:absolute;left:0;right:0;bottom:0;height:3px;background:var(--amber-2);transform:scaleX(0);transform-origin:left;transition:transform .55s var(--ease)}
 .cap__c .num{
-  font-family:var(--font-d);font-size:clamp(44px,5.4vw,72px);font-weight:800;letter-spacing:-.04em;
-  font-variant-numeric:tabular-nums;line-height:1;color:var(--ink);
+  font-family:var(--font-d);font-size:clamp(46px,5.6vw,76px);font-weight:800;letter-spacing:-.04em;
+  font-variant-numeric:tabular-nums;line-height:1;color:var(--amber-2);
+  display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;
 }
-.cap__c .num small{font-size:.32em;font-weight:600;color:var(--ink-2);letter-spacing:0;margin-left:6px}
-.cap__c p{margin:14px 0 0;color:var(--ink-2);font-size:15px}
+.cap__c .num small{
+  font-size:.3em;font-weight:600;color:var(--ink);letter-spacing:0;margin-left:0;
+}
+/* the tile's caption is the material, not a repeat of the figure above it */
+.cap__c p{
+  margin:16px 0 0;padding-top:14px;border-top:1px solid var(--line);
+  color:var(--ink);font-family:var(--font-d);font-size:17px;font-weight:600;letter-spacing:-.01em;
+}
 .row.on .row__n{color:var(--amber-2)}
 .rows{
   --rail:clamp(20px,2.6vw,32px);
