@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ürünlerimiz — Arc Trading</title>
+<link rel="canonical" href="../products.html">
+<meta http-equiv="refresh" content="0; url=../products.html">
+<script>
+  /* the old page was one long list with #u1 … #u25 anchors;
+     each of those is a product page of its own now */
+  var id = (location.hash || '').replace('#', '');
+  location.replace(/^u\d+$/.test(id) ? '../product.html?id=' + id : '../products.html');
+</script>
+<style>body{font:16px/1.6 system-ui,sans-serif;margin:0;display:grid;place-items:center;min-height:100vh;background:#fff;color:#0E1116}
+a{color:#E5A900}</style>
+</head>
+<body>
+  <p>Ürün kataloğu taşındı. <a href="../products.html">Ürünlerimiz</a></p>
+</body>
+</html>
